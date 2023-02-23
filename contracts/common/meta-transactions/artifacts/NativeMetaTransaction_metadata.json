@@ -1,0 +1,192 @@
+{
+	"compiler": {
+		"version": "0.8.17+commit.8df45f5f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address payable",
+						"name": "relayerAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "functionSignature",
+						"type": "bytes"
+					}
+				],
+				"name": "MetaTransactionExecuted",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "ERC712_VERSION",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "functionSignature",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "sigR",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "sigS",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint8",
+						"name": "sigV",
+						"type": "uint8"
+					}
+				],
+				"name": "executeMetaTransaction",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getChainId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDomainSeperator",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getNonce",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "nonce",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/common/meta-transactions/NativeMetaTransaction.sol": "NativeMetaTransaction"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/math/SafeMath.sol": {
+			"keccak256": "0x0f633a0223d9a1dcccfcf38a64c9de0874dfcbfac0c6941ccf074d63a2ce0e1e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://864a40efcffdf408044c332a5aa38ec5618ed7b4eecb8f65faf45671bd6cdc65",
+				"dweb:/ipfs/QmQJquTMtc6fgm5JQzGdsGpA2fqBe3MHWEdt2qzaLySMdN"
+			]
+		},
+		"contracts/common/meta-transactions/EIP712Base.sol": {
+			"keccak256": "0x246e85956ec0e724c1ff413423827ad03c82121a170c15e7aa8c143be7642cc1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6d8a9df52dda294b3efd398d62a20fd86b6bdcb5192e03a1ef48721030afa8fd",
+				"dweb:/ipfs/QmR3ijHQE7kgizAnc1xfwQ8dAe7HrcnQzFYwvZ2auP3ZXp"
+			]
+		},
+		"contracts/common/meta-transactions/Initializable.sol": {
+			"keccak256": "0x1d59e66fa71e2aaf6b2d9ee2f3433cf700ce1f8a2fe863f9e38fb431e9d8a5a1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d9e0dc17c6875a59cb7883cdeb52ed98c7c0a4cd02e64ec9c2a58b5310a46ac2",
+				"dweb:/ipfs/QmSXZKtf2xzcAjNto84ed2rrE4e1PNSa8bKkxr4UQPpvHg"
+			]
+		},
+		"contracts/common/meta-transactions/NativeMetaTransaction.sol": {
+			"keccak256": "0x6a54b143f10ca92c5ed745f1038ac34ae391e6a95e734026d9c2558ee2bc93b2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f4a345db55656ac1a38c9654566186425361169678f63f68e7f9e46ffcf07235",
+				"dweb:/ipfs/Qma8PMTbRhEzWceppR6aP3P9RUMLfbtTET4Sh4CWQGKLUz"
+			]
+		}
+	},
+	"version": 1
+}

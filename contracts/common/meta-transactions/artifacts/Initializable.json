@@ -1,0 +1,60 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "608060405260008060006101000a81548160ff021916908315150217905550348015602957600080fd5b50603f8060376000396000f3fe6080604052600080fdfea2646970667358221220ca4bd880c7e29c555bbfc775b4e5e93d5d7a4333966c6caf7bb8f357cde32c8664736f6c63430008110033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 PUSH1 0x0 PUSH2 0x100 EXP DUP2 SLOAD DUP2 PUSH1 0xFF MUL NOT AND SWAP1 DUP4 ISZERO ISZERO MUL OR SWAP1 SSTORE POP CALLVALUE DUP1 ISZERO PUSH1 0x29 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x37 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xCA 0x4B 0xD8 DUP1 0xC7 0xE2 SWAP13 SSTORE JUMPDEST 0xBF 0xC7 PUSH22 0xB4E5E93D5D7A4333966C6CAF7BB8F357CDE32C866473 PUSH16 0x6C634300081100330000000000000000 ",
+			"sourceMap": "62:173:0:-:0;;;106:5;92:19;;;;;;;;;;;;;;;;;;;;62:173;;;;;;;;;;;;;;;;"
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "6080604052600080fdfea2646970667358221220ca4bd880c7e29c555bbfc775b4e5e93d5d7a4333966c6caf7bb8f357cde32c8664736f6c63430008110033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xCA 0x4B 0xD8 DUP1 0xC7 0xE2 SWAP13 SSTORE JUMPDEST 0xBF 0xC7 PUSH22 0xB4E5E93D5D7A4333966C6CAF7BB8F357CDE32C866473 PUSH16 0x6C634300081100330000000000000000 ",
+			"sourceMap": "62:173:0:-:0;;;;;"
+		},
+		"gasEstimates": {
+			"creation": {
+				"codeDepositCost": "12600",
+				"executionCost": "24333",
+				"totalCost": "36933"
+			}
+		},
+		"methodIdentifiers": {}
+	},
+	"abi": []
+}

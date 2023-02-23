@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.17+commit.8df45f5f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/common/meta-transactions/ContextMixin.sol": "ContextMixin"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/common/meta-transactions/ContextMixin.sol": {
+			"keccak256": "0x605c13b15bebf0c81ac0ba3a640f0b170277a12327db984dd8d2921d59cfa559",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://dec575e3c82184f0c3ac5303cc5d9b3cd5bac44bbed76e4204e31c274fe84297",
+				"dweb:/ipfs/QmVnBYthM1GhayjHAS1U2t5T2ickn1ZphvGPbtEfkYeCKm"
+			]
+		}
+	},
+	"version": 1
+}
