@@ -16,8 +16,10 @@ import "./common/meta-transactions/NativeMetaTransaction.sol";
 
 
 contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownable {
+
     constructor() ERC721("Decuple NFT", "CDPN") {
         isMinted = new bool[](maxSupply+1);
+        setBaseTokenURI("https://ipfs.io/ipfs/QmR5N9289NPeTnVRjwRs7oMELGkshn52k31wXnn7aFesfn/");
 
     }
     
@@ -141,6 +143,30 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
             require(prices.length == 4);
             tiersPrices = prices;
         }
+
+
+
+        //  ==========================   TOKEN  URI   ==========================
+
+            string public _baseTokenURI ;
+
+            function setBaseTokenURI(string memory URI) public onlyOwner {
+                _baseTokenURI = URI;
+            }
+
+            function baseTokenURI() public view returns(string memory){
+                return _baseTokenURI;
+            }
+
+            function tokenURI(uint256 tokenId) override public view returns (string memory) {
+                return string(abi.encodePacked(baseTokenURI(),
+                        Strings.toString(tokenId),
+                        ".json")
+                        ); 
+            }
+
+        //
+
     //  =============== END of Token Specs
 
 
@@ -153,6 +179,7 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
 
         function safeMint(address to, uint256 tokenId) public onlyOwner {
             require(!_exists(tokenId), "ERC721: token already minted");
+            getTokenTier(tokenId);
             _safeMint(to, tokenId);
             totalSupply ++;
             isMinted[tokenId]=true;
@@ -190,7 +217,7 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
         /*
         *   @dev Mint by paying stable coins and claiming a Referral code
         */
-        function mintwithCode(uint256 tokenId, uint256 currency, uint256 code) public whenNotPaused {
+        function mintWithCode(uint256 tokenId, uint256 currency, uint256 code) public whenNotPaused {
             require(AC[currency], "Currency is not allowed.");
             require(!_exists(tokenId), "ERC721: token already minted");
             
