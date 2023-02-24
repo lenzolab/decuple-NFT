@@ -10,11 +10,6 @@ import "./common/meta-transactions/ContentMixin.sol";
 import "./common/meta-transactions/NativeMetaTransaction.sol";
 
 
-
-
-
-
-
 contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownable {
 
     constructor() ERC721("Decuple NFT", "CDPN") {
@@ -23,86 +18,6 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
 
     }
     
-    // Indicates the token has been minted or not;
-    bool[] public isMinted;
-
-
-
-            
-
-
-    //╔═════════════════════════════════════════════════════════════════════════════════╗
-    //║                                                                                 ║
-    //║                                Proxy registery                                  ║
-    //║                                                                                 ║
-    //╚═════════════════════════════════════════════════════════════════════════════════╝
-    //    
-
-        address proxyRegistryAddress;
-
-        /**
-        * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
-        */
-        function isApprovedForAll(address owner, address operator)
-            override
-            public
-            view
-            returns (bool)
-        {
-            // Whitelist OpenSea proxy contract for easy trading.
-            ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
-            if (address(proxyRegistry.proxies(owner)) == operator) {
-                return true;
-            }
-
-            return super.isApprovedForAll(owner, operator);
-        }
-
-        /**
-        * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
-        */
-        function _msgSender()
-            internal
-            override
-            view
-            returns (address sender)
-        {
-            return ContextMixin.msgSender();
-        }
-    //  =============== END of Proxy registery    
-
-
-
-
-    //╔═════════════════════════════════════════════════════════════════════════════════╗
-    //║                                                                                 ║
-    //║                                Easy Transfer                                    ║
-    //║                                                                                 ║
-    //╚═════════════════════════════════════════════════════════════════════════════════╝
-    //    
-
-        // Easy transfer fee:
-        // [0]: Legendary fee - [1]: Epic fee - [2]: Rare fee - [3]: Common fee
-        // [0]: 0.01 BNB - [1]: 0.005 BNB - [2]: 0.003 BNB - [3]: 0.001 BNB
-        uint256[] public easyFee =[10000000000000000, 5000000000000000, 3000000000000000, 1000000000000000];
-
-        function easyTransferTo(address to, uint256 id) public payable whenNotPaused {
-            uint256 fee = easyFee[getTokenTier(id)-1];
-            require(msg.value == fee,"ERC721: service fee is not correct");
-            require(tx.origin == ownerOf(id),"Sender is not the Owner");
-            
-            safeTransferFrom(tx.origin, to, id);
-        }
-
-        function setEasyFees(uint256[] memory prices) public onlyOwner {
-            require(prices.length == 4);
-            easyFee = prices;
-        }
-    //  =============== END of Easy Transfer 
-
-
-
-
 
 
     //╔═════════════════════════════════════════════════════════════════════════════════╗
@@ -111,15 +26,44 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
     //║                                                                                 ║
     //╚═════════════════════════════════════════════════════════════════════════════════╝
     //    
-        // Tiers prices Legendary - epic - rare - common   ---  in the 10**10
-        uint256[] public tiersPrices = [4000000000000000000000, 2000000000000000000000, 1000000000000000000000, 500000000000000000000];
-        //                               4000 USD                2000 USD                1000 USD                500 USD
-        // Number of avaliable tokens:   555                     1000                    2000                    5000
-        // Token tier index
-        uint256[] public ind = [5000,7000,8000,8555];
 
-        uint256 public maxSupply = 8555;
-        uint256 public totalSupply = 0;
+        // ==========  FOR MAINNET ------------------------------------------------------------------------------------------------------------------
+            // // Tiers prices Legendary - epic - rare - common   ---  in the 10**10
+            // uint256[] public tiersPrices = [4000000000000000000000, 2000000000000000000000, 1000000000000000000000, 500000000000000000000];
+            // //                               4000 USD                2000 USD                1000 USD                500 USD
+            // // Number of avaliable tokens:   555                     1000                    2000                    5000
+            // // Token tier index
+            // uint256[] public ind = [5000,7000,8000,8555];
+
+            // uint256 public maxSupply = 8555;
+            // uint256 public totalSupply = 0;
+        // ------------------------------------------------------------------------------------------------------------------
+
+        // ==========  FOR TESTNET
+
+            // baseTOkenURI for the 21 warriors NFT collection metadate IPFS folder:
+            // https://ipfs.io/ipfs/QmR5N9289NPeTnVRjwRs7oMELGkshn52k31wXnn7aFesfn
+            // https://gateway.pinata.cloud/ipfs/QmR5N9289NPeTnVRjwRs7oMELGkshn52k31wXnn7aFesfn/
+
+            // Tiers prices Legendary - epic - rare - common   ---  in the 10**10
+            uint256[] public tiersPrices = [400000000000000000, 200000000000000000, 100000000000000000, 50000000000000000];
+            //                               0.4 USD                0.2 USD                0.1 USD                0.05 USD
+            // Number of avaliable tokens:   3                      4                      6                      8
+            // Token tier index
+            uint256[] public ind = [8,14,18,21];
+
+            uint256 public maxSupply = 21;
+            uint256 public totalSupply = 0;
+        //
+
+
+
+
+
+
+
+
+
 
         function getTokenTier(uint256 id) public view returns (uint256){
             require(id > 0, "No such a token");
@@ -176,6 +120,13 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
     //║                                                                                 ║
     //╚═════════════════════════════════════════════════════════════════════════════════╝
     //    
+
+        // Indicates the token has been minted or not;
+        bool[] public isMinted;
+
+        function getMinted() public view returns(bool[] memory){
+            return isMinted;
+        }
 
         function safeMint(address to, uint256 tokenId) public onlyOwner {
             require(!_exists(tokenId), "ERC721: token already minted");
@@ -253,6 +204,7 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
 
             ReferralContract RC;
             address public referralAddress;
+
             function setRCAddress(address adr) public onlyOwner{
                 referralAddress = adr;
                 RC = ReferralContract(referralAddress);
@@ -369,6 +321,79 @@ contract Decuple is ERC721, ContextMixin, NativeMetaTransaction, Pausable, Ownab
         }
 
     //  =============== END of Administration
+
+
+
+    //╔═════════════════════════════════════════════════════════════════════════════════╗
+    //║                                                                                 ║
+    //║                                Proxy registery                                  ║
+    //║                                                                                 ║
+    //╚═════════════════════════════════════════════════════════════════════════════════╝
+    //    
+
+        address proxyRegistryAddress;
+
+        /**
+        * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+        */
+        function isApprovedForAll(address owner, address operator)
+            override
+            public
+            view
+            returns (bool)
+        {
+            // Whitelist OpenSea proxy contract for easy trading.
+            ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
+            if (address(proxyRegistry.proxies(owner)) == operator) {
+                return true;
+            }
+
+            return super.isApprovedForAll(owner, operator);
+        }
+
+        /**
+        * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
+        */
+        function _msgSender()
+            internal
+            override
+            view
+            returns (address sender)
+        {
+            return ContextMixin.msgSender();
+        }
+    //  =============== END of Proxy registery    
+
+
+
+
+    //╔═════════════════════════════════════════════════════════════════════════════════╗
+    //║                                                                                 ║
+    //║                                Easy Transfer                                    ║
+    //║                                                                                 ║
+    //╚═════════════════════════════════════════════════════════════════════════════════╝
+    //    
+
+        // Easy transfer fee:
+        // [0]: Legendary fee - [1]: Epic fee - [2]: Rare fee - [3]: Common fee
+        // [0]: 0.01 BNB - [1]: 0.005 BNB - [2]: 0.003 BNB - [3]: 0.001 BNB
+        uint256[] public easyFee =[10000000000000000, 5000000000000000, 3000000000000000, 1000000000000000];
+
+        function easyTransferTo(address to, uint256 id) public payable whenNotPaused {
+            uint256 fee = easyFee[getTokenTier(id)-1];
+            require(msg.value == fee,"ERC721: service fee is not correct");
+            require(tx.origin == ownerOf(id),"Sender is not the Owner");
+            
+            safeTransferFrom(tx.origin, to, id);
+        }
+
+        function setEasyFees(uint256[] memory prices) public onlyOwner {
+            require(prices.length == 4);
+            easyFee = prices;
+        }
+    //  =============== END of Easy Transfer 
+
+
 
 }
 
